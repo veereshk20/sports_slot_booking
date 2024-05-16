@@ -6,14 +6,14 @@ menu.onclick = () => {
     navList.classList.toggle('open');
 };
 
-const sr = ScrollReveal ({
+const sr = ScrollReveal({
     distance: '65px',
     duration: 2600,
     delay: 450,
     reset: true
 });
 
-sr.reveal('.icons', {delay: 500, origin: 'bottom'});
+sr.reveal('.icons', { delay: 500, origin: 'bottom' });
 
 const monthButtons = document.querySelectorAll('.monthButs button');
 
@@ -62,7 +62,7 @@ slotButtons.forEach(button => {
 
 function showPayDetails1() {
     var st = document.querySelectorAll('.slotTypes .active')[0].textContent;
-    if(st == "Semester Slot"){
+    if (st == "Semester Slot") {
         var m = "May to August";
     } else {
         var m = document.querySelectorAll('.monthButs .active')[0].textContent;
@@ -79,8 +79,20 @@ function showPayDetails1() {
     modal.style.display = 'block';
 }
 
+function PaymentGateway() {
+    const itemType = document.getElementById('bst').innerText;
+    const itemMonth = document.getElementById('bm').innerText;
+    const itemTime = document.getElementById('bt').innerText;
+    const itemPrice = document.getElementById('bp').innerText;
 
-window.onclick = function(event) {
+    const url = `payment.html?type=${encodeURIComponent(itemType)}&month=${encodeURIComponent(itemMonth)}&time=${encodeURIComponent(itemTime)}&price=${encodeURIComponent(itemPrice)}`;
+
+    window.location.href = url;
+
+}
+
+
+window.onclick = function (event) {
     var modal = document.getElementById('bookModal');
     if (event.target == modal) {
         modal.style.display = "none";
