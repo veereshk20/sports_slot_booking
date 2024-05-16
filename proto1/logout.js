@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const authBtn = document.getElementById('auth-btn');
-    try {
+    try {  //to check whether the user is logged in or not
         const response = await fetch('/check-auth');
         const data = await response.json();
         if (data.isAuthenticated) {

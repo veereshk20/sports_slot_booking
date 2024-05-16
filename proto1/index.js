@@ -10,9 +10,6 @@ app.use(express.json());
 //app.use(express.static(path.join(__dirname,'client')))
 // Assuming your CSS files are in a directory named 'public'
 app.use(express.static(path.join(__dirname, '')));
-function isLoggedIn(req,res,next){
-    req.user ? next() : res.sendStatus(401);
-}
 
 app.get('/',(req,res)=>{
     res.sendFile(path.join(__dirname,'home.html'))
@@ -74,49 +71,110 @@ let roll_no=""
 
 app.get('/auth/google/success',isLoggedIn,(req,res)=>{
     
-    Name=req.user.name.familyName;
-    //console.log(name)
-    mail=req.user.email
-    roll_no=req.user.given_name
-    //console.log(roll_no)
-    queryUser(Name,mail,roll_no)
+    // Name=req.user.name.familyName;
+    // //console.log(name)
+    // mail=req.user.email
+    // roll_no=req.user.given_name
+    // console.log(roll_no)
+    // queryUser(Name,mail,roll_no)
     res.redirect('/profile');
 });
-let timing=""
-async function queryUser(Name,mail,roll_no){
-    const con=mysql.createConnection({
-        host:'localhost',
-        user:'root',
-        password:'veeresh123',
-        database:'Sports'
-    })
-    
-    con.connect((err)=>{
-        if(err){
-            console.log("error connect")
-            return;
-        }
-        console.log("Connected")
-        con.query(`select S.timing from slots S join plays P on P.slotid=S.slotid where id='${roll_no}';`,(err,res)=>{
-            if(err){
-                console.log(err)
-            }
-            timing=res[0].timing
-            //console.log(timing)
-            //return timing 
-        })
-    })
+
+function isLoggedIn(req, res, next) {
+    req.isAuthenticated() ? next() : res.sendStatus(401);
 }
-//console.log(queryUser(Name,mail,roll_no))
-app.get('/profile', isLoggedIn, (req, res) => {
-    // Send user details as JSON
-    res.json({
-      name: req.user.name.familyName,
-      email: req.user.emails[0].value,
-      photo: req.user.photos[0].value,
-      timing:timing
+
+// Route for fetching user details as JSON
+app.get('/profile/data', isLoggedIn, async (req, res) => {
+    const u = req.user;
+    const  given_name = u.given_name; 
+    const familyName  = u.family_name;
+    // console.log(u.familyName);
+    // console.log(given_name);
+    const roll_no = given_name; // Assuming given_name is used as roll_no
+    // console.log(req.user);
+    // console.log(roll_no);
+
+    const email = u.email;
+
+    try {
+        // console.log("hello");
+        const timing = await queryUser(familyName, roll_no);
+        // console.log("bye");
+        res.json({
+            name: familyName,
+            email: email,
+            photo: u.picture,
+            timing: timing || 'N/A'
+        });
+    } catch (error) {
+        console.error('Error querying user:', error);
+        res.status(500).send('Server error');
+    }
+});
+
+let timing = "";
+
+function findNumbersInString(inputString) {
+    // Regular expression to match numbers
+    var numberPattern = /\d+/g;
+    
+    // Use match method to find numbers in the input string
+    var numbersArray = inputString.match(numberPattern);
+    
+    // Return the array of numbers found in the string
+    return numbersArray;
+}
+
+async function queryUser(Name, roll_no) {
+    const con = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: 'veeresh123',
+        database: 'Sports'
     });
-  });
+
+    return new Promise((resolve, reject) => {
+        con.connect((err) => {
+            if (err) {
+                console.log("Error connecting to the database");
+                return reject(err);
+            }
+            console.log("Connected to the database");
+            console.log(roll_no);
+            // Check if user exists
+            con.query(`SELECT S.timing FROM slots S JOIN plays P ON P.slotid = S.slotid WHERE id = ?`, [roll_no], (err, results) => {
+                if (err) {
+                    console.log("Error querying the database");
+                    return reject(err);
+                }
+                if (results.length > 0) {
+                    timing = results[0].timing;
+                    console.log("User exists, timing: ", timing);
+                    resolve(timing);
+                } else {
+                    // User does not exist, insert into people table
+                    var role = "student";
+
+                    var array = findNumbersInString(roll_no);
+
+                    if(array.length==0)
+                        role = 'faculty'
+
+                    con.query(`INSERT INTO people (id, name, role) VALUES (?, ?, ?)`, [roll_no, Name, role], (err, results) => {
+                        if (err) {
+                            console.log("Error inserting into people table");
+                            return reject(err);
+                        }
+                        console.log("Inserted new user into people table");
+                        resolve(null);
+                    });
+                }
+            });
+        });
+    });
+}
+
 
 app.listen(5500,()=>{
     console.log('Listening on port 5500')

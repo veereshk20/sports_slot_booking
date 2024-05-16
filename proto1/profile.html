@@ -73,26 +73,7 @@
 
     <script src="https://unpkg.com/scrollreveal"></script>
 
-    <script>
-        // Fetch user profile data from the server and update the HTML content
-        fetch('/profile')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('welcome-message').textContent = `Welcome, ${data.name}`;
-                document.getElementById('profile-photo').src = data.photo;
-                document.getElementById('profile-name').textContent = data.name;
-                document.getElementById('profile-email').textContent = data.email;
-                document.getElementById('profile-time').textContent=data.timing
-            })
-            .catch(error => {
-                console.error('Error fetching profile data:', error);
-            });
-
-        // Function to change phone number (you'll need to implement this)
-        function changePhNo() {
-            // Your code to change phone number
-        }
-    </script>
     <script src="logout.js"></script>
+    <script src="profile.js"></script>
 </body>
 </html>
