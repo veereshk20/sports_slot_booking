@@ -121,7 +121,8 @@ function findNumbersInString(inputString) {
     
     // Use match method to find numbers in the input string
     var numbersArray = inputString.match(numberPattern);
-    
+    if(numbersArray==null)
+        numbersArray=[]
     // Return the array of numbers found in the string
     return numbersArray;
 }
@@ -134,14 +135,13 @@ async function queryUser(Name, roll_no) {
         database: 'Sports'
     });
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject,) => {
         con.connect((err) => {
             if (err) {
                 console.log("Error connecting to the database");
                 return reject(err);
             }
             console.log("Connected to the database");
-            console.log(roll_no);
             // Check if user exists
             con.query(`SELECT S.timing FROM slots S JOIN plays P ON P.slotid = S.slotid WHERE id = ?`, [roll_no], (err, results) => {
                 if (err) {
@@ -155,7 +155,7 @@ async function queryUser(Name, roll_no) {
                 } else {
                     // User does not exist, insert into people table
                     var role = "student";
-
+                    // console.log(roll_no);
                     var array = findNumbersInString(roll_no);
 
                     if(array.length==0)
