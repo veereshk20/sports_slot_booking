@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login - IIITDMK</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- Include the Google API client library -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+    <header>
+        <div class="logoImg">
+            <img src="logo.png">
+        </div>
+        <a href="#" class="logoText">IIITDM<br>Kancheepuram</a>
+        <ul class="navList">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="SB.html">Slot Booking</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="#">Register</a></li>
+            <li>
+                <li><a href="login.html" class="signIn">Sign In</a></li>
+            </li>
+        </ul>
+
+        <div class="bx bx-menu" id="menu-icon"></div>
+    </header>
+    <div class="login-container">
+        <h1>Login</h1>
+        <div id="g_id_onload"
+             data-client_id="235536222932-aosa6iig1siu8jj5r8sgakin3kgf666k.apps.googleusercontent.com"
+             data-auto_prompt="false">
+        </div>
+        <div class="g_id_signin"
+             data-type="standard"
+             data-shape="rectangular"
+             data-theme="outline"
+             data-text="sign_in_with"
+             data-size="large"
+             data-logo_alignment="left">
+        </div>
+    </div>
+
+    <script>
+        function handleCredentialResponse(response) {
+            console.log("Encoded JWT ID token: " + response.credential);
+            // Send the token to your server to verify and log in the user
+        }
+
+        window.onload = function () {
+            google.accounts.id.initialize({
+                client_id: '235536222932-aosa6iig1siu8jj5r8sgakin3kgf666k.apps.googleusercontent.com',
+                callback: handleCredentialResponse
+            });
+            google.accounts.id.renderButton(
+                document.querySelector(".g_id_signin"),
+                { theme: "outline", size: "large" }  // customization attributes
+            );
+            google.accounts.id.prompt(); // also display the One Tap dialog
+        }
+    </script>
+</body>
+</html>
