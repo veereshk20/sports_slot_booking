@@ -13,8 +13,21 @@ app.use(express.static(path.join(__dirname, '')));
 function isLoggedIn(req,res,next){
     req.user ? next() : res.sendStatus(401);
 }
+
 app.get('/',(req,res)=>{
-    res.sendFile(path.resolve(__dirname,'./home.html'))
+    res.sendFile(path.join(__dirname,'home.html'))
+})
+
+app.get('/profile', (req, res) => {
+    res.sendFile(path.join(__dirname, 'profile.html'));
+});
+
+app.get('/slotbooking',(req,res)=>{
+    res.sendFile(path.join(__dirname,"SB.html"))
+})
+
+app.get('/aboutUs',(req,res)=>{
+    res.sendFile(path.join(__dirname,"about.html"))
 })
 
 app.use(session({
@@ -62,7 +75,7 @@ async function queryUser(Name,mail,roll_no){
     const con=mysql.createConnection({
         host:'localhost',
         user:'root',
-        password:'password',
+        password:'veeresh123',
         database:'Sports'
     })
     
