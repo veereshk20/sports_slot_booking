@@ -142,8 +142,9 @@ async function queryUser(Name, roll_no) {
                 return reject(err);
             }
             console.log("Connected to the database");
+            console.log(roll_no);
             // Check if user exists
-            con.query(`SELECT S.timing FROM slots S JOIN plays P ON P.slotid = S.slotid WHERE id = ?`, [roll_no], (err, results) => {
+            con.query(`SELECT * FROM (people LEFT JOIN plays on people.id=plays.id) left join slots on slots.slotid = plays.slotid WHERE people.id=?;`, [roll_no], (err, results) => {
                 if (err) {
                     console.log("Error querying the database");
                     return reject(err);
