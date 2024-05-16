@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Confirmation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f4f4f4, #e2e2e2);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            padding: 30px;
+            text-align: center;
+        }
+        .container h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 2px solid #28a745;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .detail {
+            margin-bottom: 20px;
+        }
+        .detail strong {
+            display: block;
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        .detail span {
+            font-size: 16px;
+            color: #777;
+        }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .instruction {
+            font-size: 16px;
+            color: #555;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #218838;
+        }
+        #qrCode {
+            margin: 20px auto;
+            width: 150px;
+            height: 150px;
+            background: url('https://dummyimage.com/150x150/000/fff&text=QR+Code') center center no-repeat;
+            background-size: cover;
+        }
+        #timer {
+            font-size: 18px;
+            color: #d9534f;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Confirmation</h1>
+        <div class="detail">
+            <strong>Type:</strong>
+            <span id="type"></span>
+        </div>
+        <div class="detail">
+            <strong>Month(s):</strong>
+            <span id="month"></span>
+        </div>
+        <div class="detail">
+            <strong>Time:</strong>
+            <span id="time"></span>
+        </div>
+        <div class="detail">
+            <strong>Fee:</strong>
+            <span id="price"></span>
+        </div>
+        <div class="detail">
+            <strong>Reference ID:</strong>
+            <span id="referenceId"></span>
+        </div>
+        <div id="qrCode"></div>
+        <div class="instruction">Scan the QR Code and pay</div>
+        <div id="timer">Time left to make payment: <span id="timeLeft"></span></div>
+        <a href="profile.html" class="button">Back to Home</a>
+    </div>
+
+    <script>
+        // Function to get URL parameters
+        function getQueryParams() {
+            const params = {};
+            const queryString = window.location.search.slice(1);
+            const pairs = queryString.split('&');
+
+            pairs.forEach(pair => {
+                const [key, value] = pair.split('=');
+                params[decodeURIComponent(key)] = decodeURIComponent(value);
+            });
+
+            return params;
+        }
+
+        // Function to generate a dummy reference ID
+        function generateReferenceId() {
+            return 'REF-' + Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+        }
+
+        // Timer function
+        function startTimer(duration, display) {
+            let timer = duration, minutes, seconds;
+            const interval = setInterval(() => {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(interval);
+                    display.textContent = "EXPIRED";
+                    alert("Payment session expired. Please try again.");
+                }
+            }, 1000);
+        }
+
+        // Retrieve parameters and display them
+        const params = getQueryParams();
+        document.getElementById('type').innerText = params.type;
+        document.getElementById('month').innerText = params.month;
+        document.getElementById('time').innerText = params.time;
+        document.getElementById('price').innerText = params.price;
+
+        // Display the dummy reference ID
+        document.getElementById('referenceId').innerText = generateReferenceId();
+
+        // Start the timer
+        const timeLeftDisplay = document.getElementById('timeLeft');
+        startTimer(10 * 60, timeLeftDisplay); // 10 minutes timer
+    </script>
+</body>
+</html>
