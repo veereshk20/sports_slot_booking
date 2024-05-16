@@ -54,7 +54,19 @@ app.get('/auth/google/failure',isLoggedIn,(req,res)=>{
     res.send('Something wrong')
 });
 
+app.get('/logout', (req, res) => {
+    req.logout(() => {
+        res.redirect('/');
+    });
+});
 
+app.get('/check-auth', (req, res) => {
+    if (req.isAuthenticated()) {
+        res.json({ isAuthenticated: true });
+    } else {
+        res.json({ isAuthenticated: false });
+    }
+});
 
 let Name=""
 let mail=""
@@ -68,7 +80,7 @@ app.get('/auth/google/success',isLoggedIn,(req,res)=>{
     roll_no=req.user.given_name
     //console.log(roll_no)
     queryUser(Name,mail,roll_no)
-    res.redirect('/profile.html');
+    res.redirect('/profile');
 });
 let timing=""
 async function queryUser(Name,mail,roll_no){
