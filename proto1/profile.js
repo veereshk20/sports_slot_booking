@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${sub.gname}</td>
-                    <td>${sub.timing}</td>
                     <td>${sub.tname}</td>
+                    <td>${sub.timing}</td>
                     <td>${sub.s_date}</td>
                     <td>${sub.e_date}</td>
                 `;
