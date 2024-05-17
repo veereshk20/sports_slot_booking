@@ -105,7 +105,7 @@
         <div id="qrCode"></div>
         <div class="instruction">Scan the QR Code and pay</div>
         <div id="timer">Time left to make payment: <span id="timeLeft"></span></div>
-        <a href="profile.html" class="button">Back to Home</a>
+        <a href="/profile" class="button">pay</a>
     </div>
 
     <script>
@@ -151,12 +151,12 @@
         // Retrieve parameters and display them
         const params = getQueryParams();
         document.getElementById('type').innerText = params.type;
-        document.getElementById('month').innerText = params.month;
+        document.getElementById('month').innerText = 'August-December';
         document.getElementById('time').innerText = params.time;
         document.getElementById('price').innerText = params.price;
 
         // Display the dummy reference ID
-        document.getElementById('referenceId').innerText = generateReferenceId();
+        document.getElementById('referenceId').innerText = 'ref8';
 
         // Start the timer
         const timeLeftDisplay = document.getElementById('timeLeft');

@@ -68,10 +68,10 @@ function showPayDetails1() {
         var m = document.querySelectorAll('.monthButs .active')[0].textContent;
     }
     var t = document.querySelectorAll('.timeButs .active')[0].textContent;
-    var f = "$6969";
+    var f = "Rs.500";
 
     document.getElementById('bst').textContent = st;
-    document.getElementById('bm').textContent = m;
+    document.getElementById('bm').textContent = "August-December";
     document.getElementById('bt').textContent = t;
     document.getElementById('bp').textContent = f;
 

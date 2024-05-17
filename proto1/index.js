@@ -170,8 +170,8 @@ async function queryUser(Name, roll_no) {
                         gname: row.gname,
                         timing: row.timing,
                         tname: row.tname,
-                        s_date: row.start_date,
-                        e_date: row.end_date
+                        s_date: row.start_date.toDateString(),
+                        e_date: row.end_date.toDateString()
                     }));                               
                     
                     resolve(userinfo);
@@ -250,6 +250,36 @@ async function sports(){
     });
 }
 
+let slinfo = [];
+
+app.post('/submit', (req, res) => {
+    const data = req.body;
+    console.log('Received data:', data);
+    
+    const gname = data.gname;
+    const type = data.typeid;
+
+    try {
+
+        if(type=="S"){
+        // console.log("hello");
+        const spinfo = "yes";
+        // console.log("bye");
+        res.json({
+            slinfo: sportinfo || 'N/A'
+        });
+        }else{
+
+        }
+
+    } catch (error) {
+        console.error('Error querying user:', error);
+        res.status(500).send('Server error');
+    }
+
+
+    res.status(200).send('Data received');
+});
 
 app.listen(5500,()=>{
     console.log('Listening on port 5500')

@@ -42,35 +42,36 @@
     </header>
  
     <div class="hero">
-        <div class="sportSel" id="sports">
-            <!-- js will fetch all the sports -->
+        <div class="sportSel">
+            <button id="b1" onclick="openBad()" data-sport="BADMINTON"><img src="s1.png" class="badm"></button>
+            <button id="b2" onclick="openCar()" data-sport="CARROM"><img src="s2.png" class="carr"></button>
+            <button id="b3" onclick="openChe()" data-sport="CHESS"><img src="s3.png" class="ches"></button>
+            <button id="b4" onclick="openTab()" data-sport="TABLE-TENNIS"><img src="s4.png" class="tabl"></button>
+            <button id="b5" onclick="openTen()" data-sport="TENNIS"><img src="s5.png" class="tenn"></button>
+            <button id="b6" onclick="openGym()" data-sport="GYM"><img src="s6.png" class="gymm"></button>
         </div>
-        <div id="bad" class="slots">
+        <div id="badminton" class="slots">
             <div class="slotTypeHead">
                 <h1>Choose slot type</h1>
             </div>
             <div class="slotTypes">
-                <button id="st11" onclick="openMonths1()">Monthly Slots</button>
-                <button id="st12" onclick="openSem1()">Semester Slot</button>
+                <button id="st11" class="submit" onclick="openMonths1()">Monthly Slots</button>
+                <button id="st12" class="submit" onclick="openSem1()">Semester Slot</button>
             </div>
             <div id="m1" class="months">
                 <div class="monthHead"><h1>Choose a month</h1></div>
                 <div class="monthButs">
-                    <button id="m11" onclick="openTimes1()">(01-05 to 07-05)</button>
-                    <button id="m12" onclick="openTimes1()">(08-05 to 14-05)</button>
-                    <button id="m13" onclick="openTimes1()">(15-05 to 21-05)</button>
-                    <button id="m14" onclick="openTimes1()">(22-05 to 28-05)</button>
+                    <button id="m11" onclick="openTimes1()">(2024-08-11 - 2024-09-11)</button>
+                    <button id="m12" onclick="openTimes1()">(2024-09-11 - 2024-10-11)</button>
+                    <button id="m13" onclick="openTimes1()">(2024-10-11 - 2024-11-11)</button>
+                    <button id="m14" onclick="openTimes1()">(2024-11-11 - 2024-12-11)</button>
                 </div>
             </div>
             <div id="t1" class="times">
                 <div class="timeHead"><h1>Choose a time</h1></div>
                 <div class="timeButs">
-                    <button id="t11" onclick="activateBook1()">(06 to 07)</button>
-                    <button id="t12" onclick="activateBook1()">(07 to 08)</button>
-                    <button id="t13" onclick="activateBook1()">(08 to 09)</button>
-                    <button id="t14" onclick="activateBook1()">(17 to 18)</button>
-                    <button id="t15" onclick="activateBook1()">(18 to 19)</button>
-                    <button id="t16" onclick="activateBook1()">(19 to 20)</button>
+                    <button id="t11" onclick="activateBook1()">6-7AM</button>
+                    <button id="t12" onclick="activateBook1()">9-10AM</button>
                 </div>
                 <div class="book">
                     <button id="bk" onclick="showPayDetails1()">BOOK</button>
@@ -79,12 +80,9 @@
             <div id="tsId1" class="timeSem">
                 <div class="timeHead"><h1>Choose a time</h1></div>
                 <div class="timeButs">
-                    <button id="ts11" onclick="activateBook1()">(06 to 07)</button>
-                    <button id="ts12" onclick="activateBook1()">(07 to 08)</button>
-                    <button id="ts13" onclick="activateBook1()">(08 to 09)</button>
-                    <button id="ts14" onclick="activateBook1()">(17 to 18)</button>
-                    <button id="ts15" onclick="activateBook1()">(18 to 19)</button>
-                    <button id="ts16" onclick="activateBook1()">(19 to 20)</button>
+                    <button id="ts11" onclick="activateBook1()">5-6AM</button>
+                    <button id="ts12" onclick="activateBook1()">7-8AM</button>
+                    <button id="ts13" onclick="activateBook1()">8-9AM</button>
                 </div>
                 <div class="book">
                     <button id="bk" onclick="showPayDetails1()">BOOK</button>
@@ -102,10 +100,10 @@
             <div id="m2" class="months">
                 <div class="monthHead"><h1>Choose a month</h1></div>
                 <div class="monthButs">
-                    <button id="m21" onclick="openTimes2()">(01-05 to 07-05)</button>
-                    <button id="m22" onclick="openTimes2()">(08-05 to 14-05)</button>
-                    <button id="m23" onclick="openTimes2()">(15-05 to 21-05)</button>
-                    <button id="m24" onclick="openTimes2()">(22-05 to 28-05)</button>
+                    <button id="m21" onclick="openTimes2()">(2024-08-11 - 2024-09-11)</button>
+                    <button id="m22" onclick="openTimes2()">(2024-09-11 - 2024-10-11)</button>
+                    <button id="m23" onclick="openTimes2()">(2024-10-11 - 2024-11-11)</button>
+                    <button id="m24" onclick="openTimes2()">(2024-11-11 - 2024-12-11)</button>
                 </div>
             </div>
             <div id="t2" class="times">
@@ -148,10 +146,10 @@
             <div id="m3" class="months">
                 <div class="monthHead"><h1>Choose a month</h1></div>
                 <div class="monthButs">
-                    <button id="m31" onclick="openTimes3()">(01-05 to 07-05)</button>
-                    <button id="m32" onclick="openTimes3()">(08-05 to 14-05)</button>
-                    <button id="m33" onclick="openTimes3()">(15-05 to 21-05)</button>
-                    <button id="m34" onclick="openTimes3()">(22-05 to 28-05)</button>
+                    <button id="m31" onclick="openTimes3()">(2024-08-11 - 2024-09-11)</button>
+                    <button id="m32" onclick="openTimes3()">(2024-09-11 - 2024-10-11)</button>
+                    <button id="m33" onclick="openTimes3()">(2024-10-11 - 2024-11-11)</button>
+                    <button id="m34" onclick="openTimes3()">(2024-11-11 - 2024-12-11)</button>
                 </div>
             </div>
             <div id="t3" class="times">
@@ -194,10 +192,10 @@
             <div id="m4" class="months">
                 <div class="monthHead"><h1>Choose a month</h1></div>
                 <div class="monthButs">
-                    <button id="m41" onclick="openTimes4()">(01-05 to 07-05)</button>
-                    <button id="m42" onclick="openTimes4()">(08-05 to 14-05)</button>
-                    <button id="m43" onclick="openTimes4()">(15-05 to 21-05)</button>
-                    <button id="m44" onclick="openTimes4()">(22-05 to 28-05)</button>
+                    <button id="m41" onclick="openTimes4()">(2024-08-11 - 2024-09-11)</button>
+                    <button id="m42" onclick="openTimes4()">(2024-09-11 - 2024-10-11)</button>
+                    <button id="m43" onclick="openTimes4()">(2024-10-11 - 2024-11-11)</button>
+                    <button id="m44" onclick="openTimes4()">(2024-11-11 - 2024-12-11)</button>
                 </div>
             </div>
             <div id="t4" class="times">
@@ -240,10 +238,10 @@
             <div id="m5" class="months">
                 <div class="monthHead"><h1>Choose a month</h1></div>
                 <div class="monthButs">
-                    <button id="m51" onclick="openTimes5()">(01-05 to 07-05)</button>
-                    <button id="m52" onclick="openTimes5()">(08-05 to 14-05)</button>
-                    <button id="m53" onclick="openTimes5()">(15-05 to 21-05)</button>
-                    <button id="m54" onclick="openTimes5()">(22-05 to 28-05)</button>
+                    <button id="m51" onclick="openTimes5()">(2024-08-11 - 2024-09-11)</button>
+                    <button id="m52" onclick="openTimes5()">(2024-09-11 - 2024-10-11)</button>
+                    <button id="m53" onclick="openTimes5()">(2024-10-11 - 2024-11-11)</button>
+                    <button id="m54" onclick="openTimes5()">(2024-11-11 - 2024-12-11)</button>
                 </div>
             </div>
             <div id="t5" class="times">
@@ -286,10 +284,10 @@
             <div id="m6" class="months">
                 <div class="monthHead"><h1>Choose a month</h1></div>
                 <div class="monthButs">
-                    <button id="m61" onclick="openTimes6()">(01-05 to 07-05)</button>
-                    <button id="m62" onclick="openTimes6()">(08-05 to 14-05)</button>
-                    <button id="m63" onclick="openTimes6()">(15-05 to 21-05)</button>
-                    <button id="m64" onclick="openTimes6()">(22-05 to 28-05)</button>
+                    <button id="m61" onclick="openTimes6()">(2024-08-11 - 2024-09-11)</button>
+                    <button id="m62" onclick="openTimes6()">(2024-09-11 - 2024-10-11)</button>
+                    <button id="m63" onclick="openTimes6()">(2024-10-11 - 2024-11-11)</button>
+                    <button id="m64" onclick="openTimes6()">(2024-11-11 - 2024-12-11)</button>
                 </div>
             </div>
             <div id="t6" class="times">
@@ -343,7 +341,7 @@
     </footer>
 
     <script>
-        var bad = document.getElementById("bad");
+        var bad = document.getElementById("badminton");
         var car = document.getElementById("car");
         var che = document.getElementById("che");
         var tab = document.getElementById("tab");
@@ -1048,6 +1046,7 @@
             ten.style.transitionDelay = "0s";
             gym.style.transitionDelay = "0.5s";
         }
+
     </script>
 
     <script src="https://unpkg.com/scrollreveal"></script>

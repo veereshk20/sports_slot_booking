@@ -133,13 +133,13 @@ header{
     opacity: 1; /* Show the text on hover */
 }
 
-.spo{
+.badm{
     width: 100px;
     height: auto;
     transition: all 0.5s ease;
 }
 
-.spo:hover{
+.badm:hover{
     width: 100px;
     height: auto;
     box-shadow: 0px 0px 1px 1px rgb(0, 0, 0);
