@@ -198,6 +198,58 @@ async function queryUser(Name, roll_no) {
     });
 }
 
+app.get('/slotbooking/sports',isLoggedIn, async (req, res)=>{
+    try {
+        // console.log("hello");
+        const spinfo = await sports();
+        // console.log("bye");
+        res.json({
+            sinfo: sportinfo || 'N/A'
+        });
+    } catch (error) {
+        console.error('Error querying user:', error);
+        res.status(500).send('Server error');
+    }
+});
+
+let sportinfo=[]
+
+async function sports(){
+    const con = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: 'veeresh123',
+        database: 'Sports'
+    });
+
+    return new Promise((resolve, reject,) => {
+        con.connect((err) => {
+            if (err) {
+                console.log("Error connecting to the database");
+                return reject(err);
+            }
+            console.log("Connected to the database");
+            // Check if user exists
+            con.query(`SELECT * FROM sports;`, (err, results) => {
+                if (err) {
+                    console.log("Error querying the database");
+                    return reject(err);
+                }
+                if (results.length > 0) {
+
+                    sportinfo= results.map(row => ({ // Convert RowDataPacket to plain JavaScript object
+                        gname: row.gname,
+                    }));                               
+                    
+                    resolve(sportinfo);
+                } else {
+                        resolve(null);                   
+                }
+            });
+        });
+    });
+}
+
 
 app.listen(5500,()=>{
     console.log('Listening on port 5500')
