@@ -7,7 +7,22 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('profile-photo').src = data.photo;
             document.getElementById('profile-name').textContent = data.name;
             document.getElementById('profile-email').textContent = data.email;
-            document.getElementById('profile-time').textContent = data.timing;
+            
+            const tableBody = document.getElementById('subscriptions-table').querySelector('tbody');
+            const info=data.info
+            info.forEach(sub => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${sub.gname}</td>
+                    <td>${sub.timing}</td>
+                    <td>${sub.tname}</td>
+                    <td>${sub.s_date}</td>
+                    <td>${sub.e_date}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+
             
             if (data.name !== 'Guest') {
                 document.getElementById('auth-btn').innerHTML = '<a href="/logout" class="signOut">Logout</a>';
@@ -23,5 +38,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 function changePhNo(){
-    
+
 }

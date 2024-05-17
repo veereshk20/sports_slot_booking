@@ -42,23 +42,34 @@
     </header>
 
     <div class="hero">
-        <div class="Wlc">
-            <h1 id="welcome-message">Welcome, Master<3</h1>
-            <img id="profile-photo" src="vignesh.jpeg" alt="Profile Photo">
-        </div>
         <div class="container">
-            <div class="perInfo">
-                <h2>Personal Information</h2>
-                <p><strong>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</strong>&nbsp;&nbsp;<span id="profile-name">Your Name</span></p>
-                <p><strong>Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</strong>&nbsp;&nbsp;<span id="profile-email">cs22b2004@iiitdm.ac.in</span></p>
-                <p><strong>Phone No.&nbsp;:</strong>&nbsp;&nbsp;+91&nbsp;<span id="phone">6969696969</span></p>
-                <button id="phChgBtn" onclick="changePhNo()">Change Phone No.</button>
+            <div class="profile-section">
+                <img id="profile-photo" src="" alt="Profile Photo">
+                <div class="profile-details">
+                    <h2 id="welcome-message">Welcome, USER<3</h2>
+                    <p><strong>Name:</strong>&nbsp;&nbsp;<span id="profile-name">""</span></p>
+                    <p><strong>Email:</strong>&nbsp;&nbsp;<span id="profile-email">""</span></p>
+                    <p><strong>Phone No.:</strong>&nbsp;&nbsp;+91&nbsp;<span id="phone">""</span></p>
+                    <button id="phChgBtn" onclick="changePhNo()">Change Phone No.</button>
+                </div>
             </div>
+
             <div class="subs">
-                <h2 id="l1">My Subscription</h2>
-                <p id="l2"><strong>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</strong>&nbsp;&nbsp;Monthly</p>
-                <p id="l3"><strong>Month(s)&nbsp;:</strong>&nbsp;&nbsp;May</p>
-                <p id="l4"><strong>Time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</strong>&nbsp;&nbsp;<span id="profile-time"></span></p>
+                <h2>My Subscriptions</h2>
+                <table id="subscriptions-table">
+                    <thead>
+                        <tr>
+                            <th>Sport</th>
+                            <th>Subscription Type</th>
+                            <th>Slot Timing</th>
+                            <th>Subscription Start Date</th>
+                            <th>Subscription End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Subscriptions will be populated here -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

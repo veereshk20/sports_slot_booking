@@ -93,6 +93,8 @@ function isLoggedIn(req, res, next) {
     req.isAuthenticated() ? next() : res.sendStatus(401);
 }
 
+let r = "";
+
 // Route for fetching user details as JSON
 app.get('/profile/data', isLoggedIn, async (req, res) => {
     const u = req.user;
@@ -108,13 +110,13 @@ app.get('/profile/data', isLoggedIn, async (req, res) => {
 
     try {
         // console.log("hello");
-        const timing = await queryUser(familyName, roll_no);
+        const r = await queryUser(familyName, roll_no);
         // console.log("bye");
         res.json({
             name: familyName,
             email: email,
             photo: u.picture,
-            timing: timing || 'N/A'
+            info: r || 'N/A'
         });
     } catch (error) {
         console.error('Error querying user:', error);
@@ -122,7 +124,7 @@ app.get('/profile/data', isLoggedIn, async (req, res) => {
     }
 });
 
-let timing = "";
+let userinfo = [];
 
 function findNumbersInString(inputString) {
     // Regular expression to match numbers
@@ -153,15 +155,26 @@ async function queryUser(Name, roll_no) {
             console.log("Connected to the database");
             console.log(roll_no);
             // Check if user exists
-            con.query(`SELECT * FROM (people LEFT JOIN plays on people.id=plays.id) left join slots on slots.slotid = plays.slotid WHERE people.id=?;`, [roll_no], (err, results) => {
+            con.query(`SELECT gname,timing,tname,start_date,end_date from (((people p left join plays pl on p.id=pl.id) left join sports s on s.gid=pl.gid) left join slots sl on pl.slotid=sl.slotid) left join type t on t.typeid=pl.typeid where p.id=?;`, [roll_no], (err, results) => {
                 if (err) {
                     console.log("Error querying the database");
                     return reject(err);
                 }
                 if (results.length > 0) {
-                    timing = results[0].timing;
-                    console.log("User exists, timing: ", timing);
-                    resolve(timing);
+
+                    if(results.length === 1 && results[0].gname === null){
+                       resolve(null)
+                    }
+
+                    userinfo= results.map(row => ({ // Convert RowDataPacket to plain JavaScript object
+                        gname: row.gname,
+                        timing: row.timing,
+                        tname: row.tname,
+                        s_date: row.start_date,
+                        e_date: row.end_date
+                    }));                               
+                    
+                    resolve(userinfo);
                 } else {
                     // User does not exist, insert into people table
                     var role = "student";
