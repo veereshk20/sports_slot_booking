@@ -21,3 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Error fetching profile data:', error);
     }
 });
+
+function changePhNo(){
+    
+}

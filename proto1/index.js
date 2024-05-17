@@ -11,22 +11,6 @@ app.use(express.json());
 // Assuming your CSS files are in a directory named 'public'
 app.use(express.static(path.join(__dirname, '')));
 
-app.get('/',(req,res)=>{
-    res.sendFile(path.join(__dirname,'home.html'))
-})
-
-app.get('/profile', (req, res) => {
-    res.sendFile(path.join(__dirname, 'profile.html'));
-});
-
-app.get('/slotbooking',(req,res)=>{
-    res.sendFile(path.join(__dirname,"SB.html"))
-})
-
-app.get('/aboutUs',(req,res)=>{
-    res.sendFile(path.join(__dirname,"about.html"))
-})
-
 app.use(session({
     secret: 'mysecret',
     resave: false,
@@ -36,6 +20,31 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/auth/google'); // Redirect to Google sign-in page
+}
+
+app.get('/',(req,res)=>{
+    res.sendFile(path.join(__dirname,'home.html'))
+})
+
+app.get('/profile',ensureAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, 'profile.html'));
+});
+
+app.get('/slotbooking',ensureAuthenticated,(req,res)=>{
+    res.sendFile(path.join(__dirname,"SB.html"))
+})
+
+app.get('/aboutUs',ensureAuthenticated,(req,res)=>{
+    res.sendFile(path.join(__dirname,"about.html"))
+})
+
+
 app.get('/auth/google',
   passport.authenticate('google', { scope:
       [ 'email', 'profile' ] }
